@@ -32,7 +32,7 @@ Supprimer les fichiers PHP de migration puis :
 php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create
 php bin/console make:migration # Cette commande va générer 1 seul fichier de migration contenant l'ensemble des requêtes SQL pour créer la base de données
-php bin/console doctrine:migration:migrate
+php bin/console doctrine:migrations:migrate
 ```
 
 ### Fixtures

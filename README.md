@@ -36,7 +36,9 @@ php bin/console doctrine:migrations:migrate
 ```
 
 ### Fixtures
-
+```shell
+composer require --dev orm-fixtures
+```
 Générer des fixtures -> ```php bin/console make:fixture```  
 Après personnalisation des fixtures dans le dossier ```src/DataFixtures/```  
 Exécuter les fixtures -> ```php bin/console doctrine:fixtures:load```  

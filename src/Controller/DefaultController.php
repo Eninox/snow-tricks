@@ -21,4 +21,9 @@ class DefaultController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    public function header() : Response
+    {
+        return $this->render('default/_header.html.twig');
+    }
 }

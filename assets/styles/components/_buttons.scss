@@ -1,0 +1,33 @@
+@use '../abstracts/variables';
+
+.btn {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 10px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  background-color: lightgrey;
+  transition: 0.5s;
+
+  a, button {
+    text-decoration: none;
+    color: variables.$color-primary;
+  }
+
+  &.btn-primary {
+    color: variables.$color-primary;
+    border-color: variables.$color-tertiary;
+    background-color: variables.$color-tertiary;
+
+    &:hover {
+      color: white;
+      border-color: variables.$color-primary;
+      background-color: variables.$color-primary;
+    }
+  }
+}

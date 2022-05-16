@@ -1,9 +1,18 @@
+@import 'normalize.css';
 @import 'fontawesome-4.7';
-
-@import 'base/elements';
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
+@import 'base/elements';
+
+@import 'components/buttons';
+@import 'components/cards';
+
 @import 'layout/containers';
 @import 'layout/header';
+@import 'layout/sections';
+
+@import "sections/category-list";
+@import "sections/home";

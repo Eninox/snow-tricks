@@ -4,7 +4,6 @@
 #main-header {
   position: fixed;
   width: 100%;
-  padding: 1rem 0;
   z-index: 1;
   background-color: variables.$color-secondary;
   box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
@@ -42,16 +41,15 @@
       }
     }
     .container-header-left {
-      margin-right: 25rem;
+      width: 50%;
     }
 
     .container-header-right {
-      margin-left: 5rem;
+      width: 50%;
     }
 
     .container-header-left, .container-header-right {
-      width: 600px;
-      flex-grow: 1; /* Cet élément doit prendre tout l'espace dispo */
+      flex-grow: 1; // element take all the available space
       display: flex;
       justify-content: space-around;
       align-items: center;

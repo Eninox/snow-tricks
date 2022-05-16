@@ -1,0 +1,44 @@
+.section-home {
+  display: flex;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  object-fit: cover;
+
+
+  .section-home-content {
+    display: flex;
+    width: 100%;
+
+    .section-home-left {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .btn-primary {
+        padding: 1rem 2rem;
+
+        &:hover {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .section-home-right {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+
+      h1 {
+        font-family: "Indie Flower", "Roboto", sans-serif;
+        font-size: 3rem;
+        font-style: italic;
+      }
+    }
+  }
+}

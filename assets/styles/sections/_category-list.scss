@@ -1,0 +1,27 @@
+@use '../abstracts/mixins';
+@use '../abstracts/variables';
+
+.category-title {
+  h2 {
+    color: variables.$color-primary;
+    text-align: center;
+  }
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@include mixins.desktop {
+  .category-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include mixins.smartphone {
+  .category-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

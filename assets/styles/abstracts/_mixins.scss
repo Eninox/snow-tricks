@@ -1,0 +1,19 @@
+@use './variables';
+
+@mixin desktop-large {
+  @media screen and (max-width: #{variables.$desktop-large-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (max-width: #{variables.$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media screen and (max-width: #{variables.$smartphone-width}) {
+    @content;
+  }
+}

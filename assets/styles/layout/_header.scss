@@ -1,0 +1,81 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
+#main-header {
+  position: fixed;
+  width: 100%;
+  padding: 1rem 0;
+  z-index: 1;
+  background-color: variables.$color-secondary;
+  box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
+
+  ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+  }
+
+  .fa {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .container-logo {
+      position: absolute;
+      bottom: -150px;
+      left: 800px;
+      clip-path:ellipse(50% 33%);
+      background-color: white;
+      //border: thick double variables.$color-primary;
+
+      img {
+        max-width: 200px;
+        clip-path:ellipse(50% 33%);
+      }
+    }
+    .container-header-left {
+      margin-right: 25rem;
+    }
+
+    .container-header-right {
+      margin-left: 5rem;
+    }
+
+    .container-header-left, .container-header-right {
+      width: 600px;
+      flex-grow: 1; /* Cet élément doit prendre tout l'espace dispo */
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      ul {
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-around;
+
+        li {
+
+          a {
+            display: inline-block;
+            padding: 1rem;
+            color: white;
+            text-decoration: none;
+            transition: color 0.5s;
+
+            &:hover {
+              color: variables.$color-tertiary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

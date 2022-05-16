@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <header id="main-header">
+        <div class="container-header">
+        <nav class="container-header-left">
+            <ul>
+                <li>
+                    <a href="{{ path('home') }}">
+                        Conseils & Astuces
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('home') }}">
+                        Tricks
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-header-middle">
+            <div class="container-logo">
+                <a href="{{ path('home') }}">
+                    <img src="{{ asset('uploads/images/logo-snow-tricks.png') }}" alt="logo-snow-tricks">
+                </a>
+            </div>
+        </div>
+
+        <nav class="container-header-right">
+            <ul>
+                <li>
+                    <a href="{{ path('home') }}">
+                        Découvrir Snow Tricks
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('home') }}">
+                        <i class="fa fa-user-plus"></i>
+                        S'inscrire
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('home') }}">
+                        <i class="fa fa-user"></i>
+                        Se connecter
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        </div>
+    </header>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock %}

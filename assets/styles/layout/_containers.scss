@@ -1,0 +1,29 @@
+@use '../abstracts/mixins';
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+
+  .container-header {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@include mixins.desktop-large {
+  .container {
+    width: 992px;
+  }
+}
+
+@include mixins.desktop {
+  .container {
+    width: 576px;
+  }
+}
+
+@include mixins.smartphone {
+  .container {
+    width: 100%;
+  }
+}

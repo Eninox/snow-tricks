@@ -17,7 +17,6 @@ class DefaultController extends AbstractController
         $categories = $doctrine->getRepository(Category::class)->findAll();
 
         return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
             'categories' => $categories,
         ]);
     }

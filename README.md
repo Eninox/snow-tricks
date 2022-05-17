@@ -2,6 +2,26 @@
 
 Projet fin de cycle Developpeur Web et Web Mobile 2022 (DWWM) à l'Institut d'Informatique Appliquée (IIA).
 
+## Démarrage du projet
+
+### Mettre en place l'environnement
+
+Créer le fichier .env.local
+
+```shell
+npm install
+composer install
+php bin/console doctrine:database:create
+php bin/console doctrine:migration:migrate
+php bin/console doctrine:fixtures:load
+```
+
+### Démarrer le serveur PHP
+
+```shell
+php -S localhost:8000 -t public
+```
+
 ## Création du projet
 
 Création du projet Symfony via composer (incluant Doctrine et Twig)
@@ -43,23 +63,3 @@ Générer des fixtures -> ```php bin/console make:fixture```
 Après personnalisation des fixtures dans le dossier ```src/DataFixtures/```  
 Exécuter les fixtures -> ```php bin/console doctrine:fixtures:load```  
 
-
-## Démarrage du projet
-
-### Mettre en place l'environnement
-
-Créer le fichier .env.local
-
-```shell
-npm install
-composer install
-php bin/console doctrine:database:create
-php bin/console doctrine:migration:migrate
-php bin/console doctrine:fixtures:load
-```
-
-### Démarrer le serveur PHP
-
-```shell
-php -S localhost:8000 -t public
-```

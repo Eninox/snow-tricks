@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Repository\CategoryRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -15,10 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     #[Route('/', name: 'app_trick_index', methods: ['GET'])]
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('trick/index.html.twig', [
             'tricks' => $trickRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 

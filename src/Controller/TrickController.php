@@ -25,7 +25,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/créer', name: 'app_trick_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'app_trick_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TrickRepository $trickRepository): Response
     {
         $trick = new Trick();
@@ -33,10 +33,10 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager->persist($trick);
-//            $entityManager->flush();
+//            $trickRepository->persist($trick);
+//            $trickRepository->flush();
 
-            $trickRepository->add($trick);
+            $trickRepository->add($trick, true);
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -61,7 +61,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trickRepository->update($trick);
+            $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -73,16 +73,16 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
-    public function delete(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($trick);
-            $entityManager->flush();
+            $trickRepository->remove($trick, true);
         }
 
         return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    // Add a route to show a category with their tricks
     #[Route('/category/{id}', name: 'app_category_show', methods: ['GET'])]
     public function showCategory(Category $category, TrickRepository $trickRepository): Response
     {
@@ -90,5 +90,10 @@ class TrickController extends AbstractController
             'tricks' => $trickRepository->findAll(),
             'category' => $category,
         ]);
+    }
+
+    public function buttonCreateTrick() : Response
+    {
+        return $this->render('trick/_buttonCreateTrick.html.twig');
     }
 }

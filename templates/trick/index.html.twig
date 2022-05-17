@@ -5,11 +5,8 @@
 {% block body %}
 
     <section class="section section-post-header">
-        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
-            <div>
-                Créer un trick
-            </div>
-        </a>
+
+        {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
 
         {% for category in categories %}
             <div class="trick-title">
@@ -39,7 +36,7 @@
                                             Détail & Discussion
                                         </div>
                                     </a>
-                                    {% if app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
+                                    {% if app.user and app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
                                         <div class="button-action">
                                             <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">
                                                 <i class="fa fa-pencil"></i>
@@ -57,11 +54,8 @@
             </div>
         {% endfor %}
 
-        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
-            <div>
-                Créer un trick
-            </div>
-        </a>
+        {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
+
     </section>
 
 {% endblock %}

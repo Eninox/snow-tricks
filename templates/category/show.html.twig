@@ -4,11 +4,9 @@
 
 {% block body %}
     <section class="section section-post-header">
-        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
-            <div>
-                Créer un trick
-            </div>
-        </a>
+
+        {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
+
         <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
             <div>
                 Toutes les catégories
@@ -56,11 +54,8 @@
                 {% endfor %}
             </div>
 
-            <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
-                <div>
-                    Créer un trick
-                </div>
-            </a>
+            {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
+
             <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
                 <div>
                     Toutes les catégories

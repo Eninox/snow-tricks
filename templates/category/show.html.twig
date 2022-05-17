@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tricks{% endblock %}
+
+{% block body %}
+    <section class="section section-post-header">
+        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
+            <div>
+                Créer un trick
+            </div>
+        </a>
+        <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
+            <div>
+                Toutes les catégories
+            </div>
+        </a>
+
+        <div class="trick-title">
+            <h2>{{ category.name }}</h2>
+        </div>
+        {% if category.tricks is empty %}
+            <p>Aucun trick pour cette catégorie</p>
+        {% else %}
+            <div class="trick-list">
+                {% for trick in tricks %}
+                    {% if trick.category.id == category.id %}
+                        <article class="card">
+                            <div class="card-img-container">
+                                <img src="/uploads/images/{{ trick.mainPicture }}" alt="{{ trick.name }}">
+                            </div>
+
+                            <div class="card-content">
+                                <a href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                    <h3>{{ trick.name }}</h3>
+                                </a>
+                                <p>{{ trick.description }}</p>
+                                <p>Créée par {{ trick.userCreator.firstname }} {{ trick.userCreator.lastname }} </p>
+                                <a class="btn btn-primary" href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                    <div>
+                                        Détail & Discussion
+                                    </div>
+                                </a>
+                                {% if app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
+                                    <div class="button-action">
+                                        <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="{{ path('app_trick_delete', {'id': trick.id}) }}">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
+                <div>
+                    Créer un trick
+                </div>
+            </a>
+            <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
+                <div>
+                    Toutes les catégories
+                </div>
+            </a>
+        {% endif %}
+    </section>
+
+{% endblock %}

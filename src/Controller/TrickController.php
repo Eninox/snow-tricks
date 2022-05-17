@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\CategoryRepository;
@@ -24,7 +25,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_trick_new', methods: ['GET', 'POST'])]
+    #[Route('/créer', name: 'app_trick_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TrickRepository $trickRepository): Response
     {
         $trick = new Trick();
@@ -53,7 +54,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_trick_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
@@ -80,5 +81,14 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/category/{id}', name: 'app_category_show', methods: ['GET'])]
+    public function showCategory(Category $category, TrickRepository $trickRepository): Response
+    {
+        return $this->render('category/show.html.twig', [
+            'tricks' => $trickRepository->findAll(),
+            'category' => $category,
+        ]);
     }
 }

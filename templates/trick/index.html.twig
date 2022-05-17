@@ -5,83 +5,63 @@
 {% block body %}
 
     <section class="section section-post-header">
+        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
+            <div>
+                Créer un trick
+            </div>
+        </a>
+
         {% for category in categories %}
             <div class="trick-title">
-                <h2>{{ category.name }}</h2>
+                <a href="{{ path('app_category_show', {'id': category.id}) }}">
+                    <h2>{{ category.name }}</h2>
+                </a>
             </div>
             <div class="trick-list">
-                {% for trick in tricks %}
-                    {% if trick.category.id == category.id %}
-                        <article class="card">
-                            <div class="card-img-container">
-                                <img src="/uploads/images/{{ trick.mainPicture }}" alt="{{ trick.name }}">
-                            </div>
-
-                            <div class="card-content">
-                                <a href="{{ path('app_trick_show', {'id': trick.id}) }}">
-                                    <h3>{{ trick.name }}</h3>
-                                </a>
-                                <p>{{ trick.description }}</p>
-                                <p>Créée par {{ trick.userCreator.firstname }} {{ trick.userCreator.lastname }} </p>
-                                <a class="btn btn-primary" href="{{ path('app_trick_show', {'id': trick.id}) }}">
-                                    <div>
-                                        Détail & Discussion
-                                    </div>
-                                </a>
-                                {% if app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN')%}
-                                <div class="button-action">
-                                    <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="{{ path('app_trick_delete', {'id': trick.id}) }}">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
+                {% if category.tricks is empty %}
+                    <p>Aucun trick pour cette catégorie</p>
+                {% else %}
+                    {% for trick in tricks %}
+                        {% if trick.category.id == category.id %}
+                            <article class="card">
+                                <div class="card-img-container">
+                                    <img src="/uploads/images/{{ trick.mainPicture }}" alt="{{ trick.name }}">
                                 </div>
-                                {% endif %}
-                            </div>
-                        </article>
-                    {% endif %}
-                {% endfor %}
+
+                                <div class="card-content">
+                                    <a href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                        <h3>{{ trick.name }}</h3>
+                                    </a>
+                                    <p>{{ trick.description }}</p>
+                                    <p>Créée par {{ trick.userCreator.firstname }} {{ trick.userCreator.lastname }} </p>
+                                    <a class="btn btn-primary" href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                        <div>
+                                            Détail & Discussion
+                                        </div>
+                                    </a>
+                                    {% if app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
+                                        <div class="button-action">
+                                            <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a href="{{ path('app_trick_delete', {'id': trick.id}) }}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
         {% endfor %}
+
+        <a class="btn btn-primary" href="{{ path('app_trick_new') }}">
+            <div>
+                Créer un trick
+            </div>
+        </a>
     </section>
 
-
-
-
-
-    <h1>Trick index</h1>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>MainPicture</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for trick in tricks %}
-            <tr>
-                <td>{{ trick.id }}</td>
-                <td>{{ trick.name }}</td>
-                <td>{{ trick.description }}</td>
-                <td>{{ trick.mainPicture }}</td>
-                <td>
-                    <a href="{{ path('app_trick_show', {'id': trick.id}) }}">show</a>
-                    <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_trick_new') }}">Create new</a>
-    </section>
 {% endblock %}

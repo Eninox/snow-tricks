@@ -7,7 +7,7 @@
         <section class="section section-post-header section-home">
             <div class="section-home-content">
                 <div class="section-home-left">
-                    <a href="{{ path('home') }}">
+                    <a href="{{ path('app_trick_index') }}">
                         <div class="btn btn-primary">
                             Découvrir nos tricks
                         </div>
@@ -33,7 +33,7 @@
 
                         <div class="card-content">
                             <h3>{{ category.name }}</h3>
-                            <a class="btn btn-primary" href="{{ path('home') }}">
+                            <a class="btn btn-primary" href="{{ path('app_category_show', {'id': category.id}) }}">
                                 <div>
                                     Consulter
                                 </div>

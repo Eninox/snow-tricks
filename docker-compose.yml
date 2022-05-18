@@ -1,21 +1,33 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    image: mysql:latest
+    container_name: db_snow_tricks
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'snow_tricks'
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - ./data/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
 
-volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_snow_tricks
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+    ports:
+      - 8080:80
+    volumes:
+      - ./data/phpmyadmin:/var/lib/phpmyadmin
+
+  maildev:
+    image: maildev/maildev:latest
+    container_name: maildev_snow_tricks
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - '8081:80'
+      - '25:25'

@@ -4,23 +4,35 @@ Projet fin de cycle Developpeur Web et Web Mobile 2022 (DWWM) à l'Institut d'In
 
 ## Démarrage du projet
 
-### Mettre en place l'environnement
+### 1-Choisir l'environnement
 
-Créer le fichier .env.local
+#### WAMP : 
+- créer le fichier .env.local  
+- déterminer les paramètres de DATABASE_URL (Mysql, Postgresql, ...)
+
+#### Docker-compose : 
+- démarrer les conteneurs mysql / phpmyadmin / maildev (voir fichier docker-compose.yml) avec la commande :
+```shell
+docker-compose up -d
+```
+
+### 2- Installer les dépendances et créer la base de données
 
 ```shell
 npm install
 composer install
 php bin/console doctrine:database:create
-php bin/console doctrine:migration:migrate
+php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
 
-### Démarrer le serveur PHP
+### 3- Démarrer le serveur PHP
 
 ```shell
 php -S localhost:8000 -t public
 ```
+
+_______________________________________________________________________________________________________________
 
 ## Création du projet
 
@@ -31,11 +43,6 @@ composer create-project symfony/skeleton snow-tricks
 cd snow-tricks
 composer require webapp
 ```
-
-## Doctrine
-
-Création du fichier ```.env.local``` avec les informations de connexion à la base de données.  
-Ajouter la ligne 'DATABASE_URL'
 
 ### Entités
 

@@ -18,3 +18,5 @@ yarn-error.log
 
 .idea/php.xml
 .idea/snow-tricks.iml
+
+/data

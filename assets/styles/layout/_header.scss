@@ -22,15 +22,18 @@
   }
 
   .container-header {
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    .container-header-middle {
+      position: relative;
+      width: 200px;
+    }
+
     .container-logo {
       position: absolute;
-      bottom: -150px;
-      left: 800px;
+      top: -100px;
       clip-path:ellipse(50% 33%);
       background-color: white;
       //border: thick double variables.$color-primary;
@@ -39,13 +42,6 @@
         max-width: 200px;
         clip-path:ellipse(50% 33%);
       }
-    }
-    .container-header-left {
-      width: 50%;
-    }
-
-    .container-header-right {
-      width: 50%;
     }
 
     .container-header-left, .container-header-right {

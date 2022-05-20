@@ -4,28 +4,28 @@
 
 {% block body %}
 
-        <section class="section section-post-header section-home">
-            <div class="section-home-content">
-                <div class="section-home-left">
-                    <a href="{{ path('app_trick_index') }}">
-                        <div class="btn btn-primary">
-                            Découvrir nos tricks
-                        </div>
-                    </a>
-                </div>
-                <div class="section-home-right">
-                    <h1>Born to Snowboarding</h1>
-                </div>
+    <section class="section section-post-header section-home">
+        <div class="section-home-content">
+            <div class="section-home-left">
+                <a href="{{ path('app_trick_index') }}">
+                    <div class="btn btn-primary">
+                        Découvrir nos tricks
+                    </div>
+                </a>
             </div>
-        </section>
+            <div class="section-home-right">
+                <h1>Born to Snowboarding</h1>
+            </div>
+        </div>
+    </section>
 
-        <section class="section">
-            <div class="container">
-                <div class="category-title">
-                    <h2>Naviguer parmi les catégories</h2>
-                </div>
+    <section class="section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Naviguer parmi les catégories</h2>
+            </div>
+            <div class="category-list">
                 {% for category in categories %}
-                <div class="category-list">
                     <article class="card">
                         <div class="card-img-container">
                             <img src="/uploads/images/{{ category.picture }}" alt="{{ category.name }}">
@@ -40,9 +40,9 @@
                             </a>
                         </div>
                     </article>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
-        </section>
+        </div>
+    </section>
 
 {% endblock %}

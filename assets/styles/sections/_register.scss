@@ -1,0 +1,36 @@
+.section-register {
+  display: flex;
+
+  .container-register {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.section-register-left {
+  width: 50%;
+}
+
+.section-register-right {
+  display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-left: grey solid 1px;
+
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .connect-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

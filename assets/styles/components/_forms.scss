@@ -1,0 +1,17 @@
+.form-type {
+
+  input[type=text], input[type=number], input[type=email], input[type=password], input[type=file], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}

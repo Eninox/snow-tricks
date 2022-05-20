@@ -38,7 +38,7 @@
                                         Détail & Discussion
                                     </div>
                                 </a>
-                                {% if app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
+                                {% if app.user and app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
                                     <div class="button-action">
                                         <a href="{{ path('app_trick_edit', {'id': trick.id}) }}">
                                             <i class="fa fa-pencil"></i>

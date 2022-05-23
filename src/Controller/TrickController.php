@@ -30,6 +30,7 @@ class TrickController extends AbstractController
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
+        $trick->setUserCreator($this->getUser());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

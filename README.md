@@ -119,14 +119,14 @@ Dans le RegistrationFormType.php, modifier le champ ```PasswordType::class``` pa
                 'second_options' => ['label' => 'Repeat Password'], 
 ```
 
-### Ajout du champ "Resté connecté"
+### Ajout du champ "Rester connecté"
 Dans le fichier ```config/packages/security.yaml``` définir
 ```yaml
 remember_me:
   secret: '%kernel.secret%'
   lifetime: 31536000 # 1 year
 ```
-Puis créer le contenu checkbox "Resté connecté" dans le fichier ```templates/security/login.html.twig```
+Puis créer le contenu checkbox "Rester connecté" dans le fichier ```templates/security/login.html.twig```
 
 ## Upload de fichiers
 

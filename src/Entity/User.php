@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $userName;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true, options: ["default" => "profile-type.png"])]
-    private $profilePicture;
+    private $profilePicture = "profile-type.png";
 
     #[ORM\OneToMany(mappedBy: 'userAuthor', targetEntity: Message::class, orphanRemoval: true)]
     private $messages;
@@ -243,5 +243,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }

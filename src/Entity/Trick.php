@@ -28,7 +28,7 @@ class Trick
     private ?string $mainPicture = null;
 
     // This attribute is not use by Doctrine, juste for VichUploaderBundle to store the file
-    #[Vich\UploadableField(mapping: 'trick_media', fileNameProperty: 'mainPicture')]
+    #[Vich\UploadableField(mapping: 'trick_main_picture', fileNameProperty: 'mainPicture')]
     private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
@@ -91,17 +91,19 @@ class Trick
         return $this;
     }
 
+    // setter for the image file which use VichUploaderBundle
     public function setImageFile(?File $mainPicture): void
     {
         $this->imageFile = $mainPicture;
 
-        if (null !== $mainPicture) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->createdAt = new \DateTimeImmutable();
-        }
+//        if (null !== $mainPicture) {
+//            // It is required that at least one field changes if you are using doctrine
+//            // otherwise the event listeners won't be called and the file is lost
+//            $this->createdAt = new \DateTimeImmutable();
+//        }
     }
 
+    // getter for the image file which use VichUploaderBundle
     public function getImageFile(): ?File
     {
         return $this->imageFile;

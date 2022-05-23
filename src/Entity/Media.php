@@ -4,7 +4,10 @@ namespace App\Entity;
 
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
@@ -21,6 +24,14 @@ class Media
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $uploadedPath;
+
+    // This attribute is not use by Doctrine, juste for VichUploaderBundle to store the file
+    #[Vich\UploadableField(mapping: 'trick_media_picture', fileNameProperty: 'uploadedPath')]
+    private ?File $pictureFile = null;
+
+    // This attribute is not use by Doctrine, juste for VichUploaderBundle to store the file
+    #[Vich\UploadableField(mapping: 'trick_media_video', fileNameProperty: 'uploadedPath')]
+    private ?File $videoFile = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $streamedPath;
@@ -67,6 +78,42 @@ class Media
         $this->uploadedPath = $uploadedPath;
 
         return $this;
+    }
+
+    // setter for the picture file which use VichUploaderBundle
+    public function setPictureFile(?File $uploadedPath): void
+    {
+        $this->pictureFile = $uploadedPath;
+
+//        if (null !== $mainPicture) {
+//            // It is required that at least one field changes if you are using doctrine
+//            // otherwise the event listeners won't be called and the file is lost
+//            $this->createdAt = new \DateTimeImmutable();
+//        }
+    }
+
+    // getter for the picture file which use VichUploaderBundle
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    // setter for the video file which use VichUploaderBundle
+    public function setVideoFile(?File $uploadedPath): void
+    {
+        $this->videoFile = $uploadedPath;
+
+//        if (null !== $mainPicture) {
+//            // It is required that at least one field changes if you are using doctrine
+//            // otherwise the event listeners won't be called and the file is lost
+//            $this->createdAt = new \DateTimeImmutable();
+//        }
+    }
+
+    // getter for the video file which use VichUploaderBundle
+    public function getVideoFile(): ?File
+    {
+        return $this->videoFile;
     }
 
     public function getStreamedPath(): ?string

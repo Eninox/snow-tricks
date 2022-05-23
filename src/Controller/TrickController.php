@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Media;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\CategoryRepository;
+use App\Repository\MediaRepository;
 use App\Repository\TrickRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +38,31 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $trickRepository->persist($trick);
-//            $trickRepository->flush();
+
+            foreach ($form->getData()->getMedia() as $media) {
+                if ($media->getMediaFile()->getMimeType() === 'image/jpg'
+                    || $media->getMediaFile()->getMimeType() === 'image/jpeg'
+                    || $media->getMediaFile()->getMimeType() === 'image/png'
+                    || $media->getMediaFile()->getMimeType() === 'image/gif') {
+                    $media->setType(Media::TYPE_PICTURE);
+
+                } else if ($media->getMediaFile()->getMimeType() === 'video/mp4'
+                    || $media->getMediaFile()->getMimeType() === 'video/webm'
+                    || $media->getMediaFile()->getMimeType() === 'video/ogg'
+                    || $media->getMediaFile()->getMimeType() === 'video/x-flv'
+                    || $media->getMediaFile()->getMimeType() === 'video/avi') {
+                    $media->setType(Media::TYPE_VIDEO_UPLOADED);
+
+                } else {
+                    $media->setType(Media::TYPE_VIDEO_STREAMED);
+                }
+
+                $media->setTitle($media->getMediaFile()->getClientOriginalName());
+                $media->setTrick($trick);
+            }
 
             $trickRepository->add($trick, true);
+
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 

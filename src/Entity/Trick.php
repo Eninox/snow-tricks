@@ -29,13 +29,13 @@ class Trick
 
     // This attribute is not use by Doctrine, juste for VichUploaderBundle to store the file
     #[Vich\UploadableField(mapping: 'trick_main_picture', fileNameProperty: 'mainPicture')]
-    private ?File $imageFile = null;
+    private ?File $pictureFile = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
     private $category;
 
-    #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'trick', cascade: ['persist'], targetEntity: Media::class)]
     private $media;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Message::class, orphanRemoval: true)]
@@ -92,9 +92,9 @@ class Trick
     }
 
     // setter for the image file which use VichUploaderBundle
-    public function setImageFile(?File $mainPicture): void
+    public function setPictureFile(?File $mainPicture): void
     {
-        $this->imageFile = $mainPicture;
+        $this->pictureFile = $mainPicture;
 
 //        if (null !== $mainPicture) {
 //            // It is required that at least one field changes if you are using doctrine
@@ -104,9 +104,9 @@ class Trick
     }
 
     // getter for the image file which use VichUploaderBundle
-    public function getImageFile(): ?File
+    public function getPictureFile(): ?File
     {
-        return $this->imageFile;
+        return $this->pictureFile;
     }
 
     public function getCategory(): ?Category

@@ -118,3 +118,37 @@ Dans le RegistrationFormType.php, modifier le champ ```PasswordType::class``` pa
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'], 
 ```
+
+### Ajout du champ "Resté connecté"
+Dans le fichier ```config/packages/security.yaml``` définir
+```yaml
+remember_me:
+  secret: '%kernel.secret%'
+  lifetime: 31536000 # 1 year
+```
+Puis créer le contenu checkbox "Resté connecté" dans le fichier ```templates/security/login.html.twig```
+
+## Upload de fichiers
+
+### Installation de VichUploaderBundle
+```shell
+composer require vich/uploader-bundle
+```
+
+### Paramétrage de VichUploaderBundle
+Dans le fichier ```config/services.yaml``` déterminer le chemin d'enregistrement des fichiers :
+```yaml
+parameters:
+  trick_media: /uploads/images/
+```
+Dans le fichier ```config/packages/vich_uploader.yaml``` récupérer le chemin d'enregistrement, définir le chemin racine à utiliser, s'assurer que le nom du fichier est unique et préserve les fichiers en cas de suppession/modification des tricks :
+```yaml
+mappings:
+  products:
+    uri_prefix: '%trick_media%'
+    upload_destination: '%kernel.project_dir%/public%trick_media%'
+    namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+    delete_on_update: false
+    delete_on_remove: false
+```
+

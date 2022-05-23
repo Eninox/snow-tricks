@@ -75,7 +75,7 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
         }
 
@@ -92,7 +92,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    public function buttonCreateTrick() : Response
+    public function buttonCreateTrick(): Response
     {
         return $this->render('trick/_buttonCreateTrick.html.twig');
     }

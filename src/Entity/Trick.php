@@ -6,7 +6,10 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
 {
@@ -22,7 +25,11 @@ class Trick
     private $description;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $mainPicture;
+    private ?string $mainPicture = null;
+
+    // This attribute is not use by Doctrine, juste for VichUploaderBundle to store the file
+    #[Vich\UploadableField(mapping: 'trick_media', fileNameProperty: 'mainPicture')]
+    private ?File $imageFile = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -82,6 +89,22 @@ class Trick
         $this->mainPicture = $mainPicture;
 
         return $this;
+    }
+
+    public function setImageFile(?File $mainPicture): void
+    {
+        $this->imageFile = $mainPicture;
+
+        if (null !== $mainPicture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getCategory(): ?Category

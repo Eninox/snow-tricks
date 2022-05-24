@@ -1,29 +1,61 @@
-{{ form_start(form) }}
-{#    {{ form_widget(form) }}#}
+<div class="form-type">
+    {{ form_start(form) }}
+    {#    {{ form_widget(form) }} #}
+    {{ form_row(form.category) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {% if trick.mainPicture %}
+        <div>
+            <h4>Image principale enregistrée</h4>
+            <img src="/uploads/images/{{ trick.mainPicture }}" alt="{{ trick.name }}">
+        </div>
+    {% endif %}
+    {{ form_row(form.pictureFile) }}
 
-<ul id="media-fields-list"
-    data-prototype="{{ form_widget(form.media.vars.prototype)|e }}"
-    data-widget-tags="{{ '<li></li>'|e }}"
-    data-widget-counter="{{ form.media|length }}">
-    {% for pictureFile in form.media %}
-        <li>
-            {{ form_errors(pictureFile) }}
-            {{ form_widget(pictureFile) }}
-        </li>
-    {% endfor %}
-</ul>
-<button type="button"
-        class="add-another-collection"
-        data-list-selector="#media-fields-list">Ajouter un média
-</button>
+    {% if trick.media %}
+        {% for media in trick.media %}
+            <h4>Medias enregistrés</h4>
+            {% if media.uploadedPath %}
+                <div>
+                    <img src="/uploads/images/{{ media.uploadedPath }}" alt="{{ media.uploadedPath }}">
+                </div>
+            {% endif %}
+            {% if media.streamedPath %}
+                <div>
+                    <iframe width="560" height="315" src="{{ media.streamedPath }}" title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
-<br><br><br>
+    <button type="button"
+            class="btn btn-primary add-another-collection"
+            data-list-selector="#media-fields-list"><i class="fa fa-plus-square"></i> Ajouter un média
+    </button>
+    <div class="media-content">
+        <ul id="media-fields-list"
+            data-prototype="{{ form_widget(form.media.vars.prototype)|e }}"
+            data-widget-tags="{{ '<li></li>'|e }}"
+            data-widget-counter="{{ form.media|length }}">
+            {% for mediaFile in form.media %}
+                <li>
+                    {{ form_errors(mediaFile) }}
+                    {{ form_widget(mediaFile) }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-Créateur de la trick : <br>
-{{ app.user }}
+    <h4>
+        Créateur de la trick : {{ app.user }}
+    </h4>
 
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Modifier') }}</button>
+    {{ form_end(form) }}
+
+</div>
 
 <script>
     jQuery(document).ready(function () {
@@ -37,8 +69,8 @@ Créateur de la trick : <br>
 
             var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
             newElem.appendTo(list);
-            newElem.append('<a href="#" class="remove-tag" style="color: darkred">remove</a>');
-            $('.remove-tag').click(function(e) {
+            newElem.append('<a href="#" class="remove-tag" style="color: darkred"><i class="fa fa-minus-square"></i></a>');
+            $('.remove-tag').click(function (e) {
                 e.preventDefault();
 
                 $(this).parent().remove();

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
@@ -32,9 +33,29 @@ class MediaType extends AbstractType
             ])
             ->add('mediaFile', VichFileType::class, [
                 'required' => false,
+                'label' => 'Image ou vidéo téléchargée',
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'video/mp4',
+                            'video/webm',
+                            'video/ogg',
+                            'video/x-flv',
+                            'video/avi',
+                        ],
+                        'mimeTypesMessage' => 'Merci de choisir un fichier de type jpeg, png, gif, mp4, webm, ogg, flv, avi',
+                    ]),
+                    new NotBlank([
+                        'message' => 'Veuillez uploader une image ou une vidéo',
+                    ]),
+                ],
             ])
             ->add('streamedPath', TextType::class, [
                 'required' => false,
+                'label' => 'Lien partageable d\'une vidéo externe (Youtube, ...)',
             ]);
     }
 

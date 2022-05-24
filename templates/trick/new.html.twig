@@ -4,18 +4,18 @@
 
 {% block body %}
 
-
     <div class="section section-post-header">
 
         <div class="container">
-
-            <h1>Créer un trick</h1>
-
-            <div class="form-type">
-                {{ include('trick/_form.html.twig') }}
+            <div class="title">
+                <h1>Créer un trick</h1>
             </div>
 
-            <a href="{{ path('app_trick_index') }}">back to list</a>
+            {{ include('trick/_form.html.twig') }}
+
+            <div class="btn-group">
+                <a class="btn btn-secondary" href="{{ path('app_trick_index') }}">Revenir aux tricks</a>
+            </div>
         </div>
 
     </div>

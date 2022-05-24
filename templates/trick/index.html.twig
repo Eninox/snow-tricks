@@ -10,9 +10,9 @@
         {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
 
         {% for category in categories %}
-            <div class="trick-title">
+            <div class="title trick-list-title">
                 <a href="{{ path('app_category_show', {'id': category.id}) }}">
-                    <h2>{{ category.name }}</h2>
+                    <h1>{{ category.name }}</h1>
                 </a>
             </div>
             <div class="trick-list">

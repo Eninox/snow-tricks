@@ -1,0 +1,23 @@
+.trick-title-new-edit {
+    h1 {
+        color: $color-primary;
+        font-size: 2rem;
+    }
+}
+
+img {
+    height: 315px;
+}
+
+.media-content ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+
+  li {
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+  }
+}

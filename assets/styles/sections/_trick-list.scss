@@ -1,18 +1,9 @@
 @use '../abstracts/mixins';
 @use '../abstracts/variables';
 
-.trick-title {
+.trick-list-title {
   border-bottom: solid 2px lightgrey;
   margin-bottom: 1rem;
-
-  a {
-    text-decoration: none;
-  }
-
-  h2 {
-    color: variables.$color-primary;
-    font-size: 2rem;
-  }
 }
 
 .trick-list {

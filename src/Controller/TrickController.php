@@ -12,6 +12,7 @@ use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,9 +53,6 @@ class TrickController extends AbstractController
                     || $media->getMediaFile()->getMimeType() === 'video/x-flv'
                     || $media->getMediaFile()->getMimeType() === 'video/avi') {
                     $media->setType(Media::TYPE_VIDEO_UPLOADED);
-
-                } else {
-                    $media->setType(Media::TYPE_VIDEO_STREAMED);
                 }
 
                 $media->setTitle($media->getMediaFile()->getClientOriginalName());

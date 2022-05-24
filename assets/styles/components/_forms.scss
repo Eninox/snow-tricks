@@ -1,6 +1,7 @@
 .form-type {
 
-  input[type=text], input[type=number], input[type=email], input[type=password], input[type=file], select, textarea {
+  input[type=text], input[type=number], input[type=email], input[type=password],
+  input[type=file], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -11,7 +12,16 @@
     resize: vertical;
   }
 
+  input[type=radio] {
+    width: auto;
+    margin: 8px;
+  }
+
   button {
     margin-top: 1rem;
+  }
+
+  li {
+    text-decoration: none;
   }
 }

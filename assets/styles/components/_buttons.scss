@@ -30,4 +30,35 @@
       background-color: variables.$color-primary;
     }
   }
+
+  &.btn-secondary {
+    color: white;
+    border-color: variables.$color-primary;
+    background-color: variables.$color-primary;
+
+    &:hover {
+      color: white;
+      border-color: variables.$color-tertiary;
+      background-color: variables.$color-tertiary;
+    }
+  }
+
+  &.btn-tertiary {
+    color: white;
+    border-color: darkred;
+    background-color: darkred;
+
+    &:hover {
+      color: white;
+      border-color: red;
+      background-color: red;
+    }
+  }
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }

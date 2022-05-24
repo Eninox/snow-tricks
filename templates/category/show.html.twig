@@ -4,17 +4,18 @@
 
 {% block body %}
     <section class="section section-post-header">
+        <div class="btn-group">
+            {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
 
-        {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
+            <a class="btn btn-secondary" href="{{ path('app_trick_index') }}">
+                <div>
+                    Toutes les catégories
+                </div>
+            </a>
+        </div>
 
-        <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
-            <div>
-                Toutes les catégories
-            </div>
-        </a>
-
-        <div class="trick-title">
-            <h2>{{ category.name }}</h2>
+        <div class="title trick-list-title">
+            <h1>{{ category.name }}</h1>
         </div>
         {% if category.tricks is empty %}
             <p>Aucun trick pour cette catégorie</p>
@@ -54,13 +55,15 @@
                 {% endfor %}
             </div>
 
-            {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
+            <div class="btn-group">
+                {{ render(controller('App\\Controller\\TrickController::buttonCreateTrick')) }}
 
-            <a class="btn btn-primary" href="{{ path('app_trick_index') }}">
-                <div>
-                    Toutes les catégories
-                </div>
-            </a>
+                <a class="btn btn-secondary" href="{{ path('app_trick_index') }}">
+                    <div>
+                        Toutes les catégories
+                    </div>
+                </a>
+            </div>
         {% endif %}
     </section>
 

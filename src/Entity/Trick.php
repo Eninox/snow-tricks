@@ -96,11 +96,11 @@ class Trick
     {
         $this->pictureFile = $mainPicture;
 
-//        if (null !== $mainPicture) {
-//            // It is required that at least one field changes if you are using doctrine
-//            // otherwise the event listeners won't be called and the file is lost
-//            $this->createdAt = new \DateTimeImmutable();
-//        }
+        if (null !== $mainPicture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     // getter for the image file which use VichUploaderBundle

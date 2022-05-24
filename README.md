@@ -139,16 +139,67 @@ composer require vich/uploader-bundle
 Dans le fichier ```config/services.yaml``` déterminer le chemin d'enregistrement des fichiers :
 ```yaml
 parameters:
-  trick_media: /uploads/images/
+  trick_main_picture: /uploads/images
+  trick_media: /uploads/media
 ```
-Dans le fichier ```config/packages/vich_uploader.yaml``` récupérer le chemin d'enregistrement, définir le chemin racine à utiliser, s'assurer que le nom du fichier est unique et préserve les fichiers en cas de suppession/modification des tricks :
+
+
+Dans le fichier ```config/packages/vich_uploader.yaml``` 
+
+1. Configurer "metadata" pour indiquer que notre version de Doctrine utilise les attributs et pas les annotations
+```yaml
+metadata:
+  type: 'attribute'
+```
+
+2. Configurer les "mappings" pour récupérer le chemin d'enregistrement, définir le chemin racine à utiliser, 
+s'assurer que le nom du fichier est unique et préserver les fichiers en cas de suppession/modification des tricks :
 ```yaml
 mappings:
-  products:
+  trick_main_picture:
+    uri_prefix: '%trick_main_picture%'
+    upload_destination: '%kernel.project_dir%/public/%trick_main_picture%'
+    namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+    delete_on_update: false
+    delete_on_remove: false
+
+  trick_media:
     uri_prefix: '%trick_media%'
-    upload_destination: '%kernel.project_dir%/public%trick_media%'
+    upload_destination: '%kernel.project_dir%/public/%trick_media%'
     namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
     delete_on_update: false
     delete_on_remove: false
 ```
+Dans les entités qui utiliseront un upload de fichiers (Trick et Media) :
+1. Activer les dépendances et VichUploader pour l'entité, exemple pour Trick
+```php
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+#[Vich\Uploadable]
+#[ORM\Entity(repositoryClass: TrickRepository::class)]
+class Trick
+```
+2. Définir l'attibut de type "file" qui sera utilisé pour uploader puis déverser dans l'attribut de la base de données
+```php
+#[Vich\UploadableField(mapping: 'trick_main_picture', fileNameProperty: 'mainPicture')]
+    private ?File $pictureFile = null;
+```
+3. Définir le getter et le setter pour cet attribut "file"
+```php
+public function setPictureFile(?File $mainPicture): void
+    {
+        $this->pictureFile = $mainPicture;
+
+        if (null !== $mainPicture) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+```
+4. Construire le formulaire dans ```src/Form```, l'upload de fichier est géré par ```VichFileType::class```
 

@@ -85,11 +85,11 @@ class Media
     {
         $this->mediaFile = $uploadedPath;
 
-//        if (null !== $mainPicture) {
-//            // It is required that at least one field changes if you are using doctrine
-//            // otherwise the event listeners won't be called and the file is lost
-//            $this->createdAt = new \DateTimeImmutable();
-//        }
+        if (null !== $uploadedPath) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
 
     // getter for the media file which use VichUploaderBundle

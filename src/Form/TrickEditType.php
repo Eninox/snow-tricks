@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class TrickType extends AbstractType
+class TrickEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -44,6 +44,8 @@ class TrickType extends AbstractType
             ->add('pictureFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Image principale',
+                'delete_label' => 'Supprimer l\'image',
+                'download_label' => 'Télécharger l\'image',
                 'constraints' => [
                     new Image([
                         'maxSize' => '10M',
@@ -55,13 +57,9 @@ class TrickType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Veuillez uploader un fichier de type jpeg, jpg, png ou gif',
                     ]),
-                    new NotBlank([
-                        'message' => 'Veuillez uploader une image',
-                    ]),
                 ],
             ])
             ->add('media', CollectionType::class, [
-                'label' => ' ',
                 'entry_type' => MediaType::class,
                 'required'  => false,
                 'allow_add' => true,

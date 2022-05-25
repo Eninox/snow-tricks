@@ -21,19 +21,30 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Image' => Media::TYPE_PICTURE,
-                    'Video' => Media::TYPE_VIDEO_UPLOADED,
-                ],
-                'data' => Media::TYPE_PICTURE,
+//            ->add('type', ChoiceType::class, [
+//                'choices' => [
+//                    'Image' => Media::TYPE_PICTURE,
+//                    'Video' => Media::TYPE_VIDEO_UPLOADED,
+//                ],
+//                'data' => Media::TYPE_PICTURE,
+//                'required' => true,
+//                'expanded' => true,
+//                'multiple' => false,
+//            ])
+            ->add('title', TextType::class, [
+                'label' => 'Titre',
                 'required' => true,
-                'expanded' => true,
-                'multiple' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un titre',
+                    ]),
+                ],
             ])
             ->add('mediaFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Image ou vidéo téléchargée',
+                'delete_label' => 'Supprimer l\'image',
+                'download_label' => 'Télécharger l\'image',
                 'constraints' => [
                     new Image([
                         'mimeTypes' => [
@@ -48,14 +59,11 @@ class MediaType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Merci de choisir un fichier de type jpeg, png, gif, mp4, webm, ogg, flv, avi',
                     ]),
-                    new NotBlank([
-                        'message' => 'Veuillez uploader une image ou une vidéo',
-                    ]),
                 ],
             ])
             ->add('streamedPath', TextType::class, [
                 'required' => false,
-                'label' => 'Lien partageable d\'une vidéo externe (Youtube, ...)',
+                'label' => 'Lien d\'une vidéo externe (Youtube ou Vimeo)',
             ]);
     }
 

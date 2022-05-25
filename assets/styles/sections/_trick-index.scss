@@ -1,0 +1,38 @@
+@use '../abstracts/mixins';
+@use '../abstracts/variables';
+
+.trick-list-title {
+  border-bottom: solid 2px lightgrey;
+  margin-bottom: 1rem;
+}
+
+.trick-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+  }
+
+  .card {
+    position: relative;
+  }
+  .button-action {
+    position: absolute;
+  }
+}
+
+@include mixins.desktop {
+  .trick-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include mixins.smartphone {
+  .trick-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

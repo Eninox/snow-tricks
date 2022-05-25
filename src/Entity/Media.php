@@ -121,4 +121,24 @@ class Media
 
         return $this;
     }
+
+    public function getSrcVideo()
+    {
+        // if the streamPath contains a youtube link
+        if (str_contains($this->getStreamedPath(), 'youtube')) {
+            // parse the youtube link to get the video id
+            $parseUrl = parse_url($this->getStreamedPath(), PHP_URL_QUERY);
+            // explode the query string to get the video id
+            parse_str($parseUrl, $params);
+
+            return 'https://www.youtube.com/embed/' . $params['v'];
+        }
+
+        if (str_contains($this->getStreamedPath(), 'vimeo')) {
+            $parseUrl = parse_url($this->getStreamedPath(), PHP_URL_QUERY);
+            parse_str($parseUrl, $params);
+
+            return 'https://player.vimeo.com/video/' . $params['id'];
+        }
+    }
 }

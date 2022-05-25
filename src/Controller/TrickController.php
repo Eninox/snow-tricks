@@ -5,14 +5,13 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Media;
 use App\Entity\Trick;
+use App\Form\TrickEditType;
 use App\Form\TrickType;
 use App\Repository\CategoryRepository;
 use App\Repository\MediaRepository;
+use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,26 +40,20 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             foreach ($form->getData()->getMedia() as $media) {
-                if ($media->getMediaFile()->getMimeType() === 'image/jpg'
-                    || $media->getMediaFile()->getMimeType() === 'image/jpeg'
-                    || $media->getMediaFile()->getMimeType() === 'image/png'
-                    || $media->getMediaFile()->getMimeType() === 'image/gif') {
-                    $media->setType(Media::TYPE_PICTURE);
+                if ($media->getMediaFile() instanceof UploadedFile) {
+                    if (str_starts_with($media->getMediaFile()->getMimeType(), 'image/')) {
+                        $media->setType(Media::TYPE_PICTURE);
 
-                } else if ($media->getMediaFile()->getMimeType() === 'video/mp4'
-                    || $media->getMediaFile()->getMimeType() === 'video/webm'
-                    || $media->getMediaFile()->getMimeType() === 'video/ogg'
-                    || $media->getMediaFile()->getMimeType() === 'video/x-flv'
-                    || $media->getMediaFile()->getMimeType() === 'video/avi') {
-                    $media->setType(Media::TYPE_VIDEO_UPLOADED);
+                    } else if (str_starts_with($media->getMediaFile()->getMimeType(), 'video/')) {
+                        $media->setType(Media::TYPE_VIDEO_UPLOADED);
+                    }
+                } else {
+                    $media->setType(Media::TYPE_VIDEO_STREAMED);
                 }
 
-                $media->setTitle($media->getMediaFile()->getClientOriginalName());
                 $media->setTrick($trick);
             }
-
             $trickRepository->add($trick, true);
-
             $this->addFlash('success', 'Votre trick est créée !');
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
@@ -73,17 +66,20 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_trick_show', methods: ['GET'])]
-    public function show(Trick $trick): Response
+    public function show(Trick $trick, MediaRepository $mediaRepository): Response
     {
+        // générer le formulaire de création de commentaire + l'envoyer dans le render
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'medias' => $mediaRepository->findBy(['trick' => $trick]),
         ]);
     }
 
     #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -21,16 +21,16 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('type', ChoiceType::class, [
-//                'choices' => [
-//                    'Image' => Media::TYPE_PICTURE,
-//                    'Video' => Media::TYPE_VIDEO_UPLOADED,
-//                ],
-//                'data' => Media::TYPE_PICTURE,
-//                'required' => true,
-//                'expanded' => true,
-//                'multiple' => false,
-//            ])
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Image' => Media::TYPE_PICTURE,
+                    'Vidéo' => Media::TYPE_VIDEO_UPLOADED,
+                    'Vidéo streamée' => Media::TYPE_VIDEO_STREAMED,
+                ],
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'required' => true,

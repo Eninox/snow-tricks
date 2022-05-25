@@ -33,7 +33,11 @@
     }
 
     p {
+      text-align: justify;
       font-style: italic;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

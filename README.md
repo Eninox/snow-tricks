@@ -203,3 +203,21 @@ public function setPictureFile(?File $mainPicture): void
 ```
 4. Construire le formulaire dans ```src/Form```, l'upload de fichier est géré par ```VichFileType::class```
 
+## Génération d'un captcha
+
+Utiliser le bundle "victor-prdh/recaptcha-bundle"
+```shell
+composer require victor-prdh/recaptcha-bundle
+```
+Répondre "n" à la première recipe (celle de google) et "y" à la 2ème (celle du bundle)
+
+Le fichier ```.env``` est pourvu des éléments suivants, générés par le fichier ```recaptcha.yaml```
+```
+GOOGLE_RECAPTCHA_SITE_KEY=
+GOOGLE_RECAPTCHA_SECRET_KEY=
+```
+Pour renseigner les 2 clés, aller sur le site https://www.google.com/recaptcha/admin et créer une nouvelle entité  
+Pour snow tricks renseigner : reCAPTCHA version 2 ; Case à cocher ; domaine = localhost  
+Saisir les clés générées puis intégrer le champ 'captcha' dans un formulaire
+
+

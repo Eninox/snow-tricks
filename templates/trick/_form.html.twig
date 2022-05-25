@@ -18,14 +18,14 @@
             {% for media in trick.media %}
                 {% if media.type == "Image" %}
                     <div>
-                        <h5>{{ media.uploadedPath }}</h5>
+                        <h5>{{ media.title }} : {{ media.uploadedPath }}</h5>
                         <img src="{{ asset('uploads/media/') ~ media.uploadedPath }}"
                              alt="{{ media.title }}">
                     </div>
                 {% endif %}
                 {% if media.type == "Vidéo téléchargée" %}
                     <div>
-                        <h5>{{ media.uploadedPath }}</h5>
+                        <h5>{{ media.title }} : {{ media.uploadedPath }}</h5>
                         <video controls width="560">
                             <source src="{{ asset('uploads/media/') ~ media.uploadedPath }}">
                         </video>
@@ -33,7 +33,7 @@
                 {% endif %}
                 {% if media.streamedPath %}
                     <div>
-                        <h5>{{ media.streamedPath }}</h5>
+                        <h5>{{ media.title }} : {{ media.streamedPath }}</h5>
                         <iframe width="560" height="315" src="{{ media.srcVideo }}" title="{{ media.title }}"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>

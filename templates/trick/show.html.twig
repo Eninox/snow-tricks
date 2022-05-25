@@ -37,13 +37,15 @@
             <section class="section-media">
                 {% for media in trick.media %}
                     {% if media.type == "Image" %}
-                        <div>
+                        <div class="media-display">
+                            <h5>{{ media.title }}</h5>
                             <img src="{{ asset('uploads/media/') ~ media.uploadedPath }}"
                                  alt="{{ media.title }}">
                         </div>
                     {% endif %}
                     {% if media.type == "Vidéo téléchargée" %}
-                        <div>
+                        <div class="media-display">
+                            <h5>{{ media.title }}</h5>
                             <video controls width="560">
                                 <source src="{{ asset('uploads/media/') ~ media.uploadedPath }}">
                                 Votre vidéo ne s'affiche pas, consulter le lien
@@ -51,7 +53,8 @@
                         </div>
                     {% endif %}
                     {% if media.streamedPath %}
-                        <div>
+                        <div class="media-display">
+                            <h5>{{ media.title }}</h5>
                             <iframe width="560" height="315" src="{{ media.srcVideo }}" title="{{ media.title }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen>Votre vidéo ne s'affiche pas, consulter le lien
@@ -64,15 +67,22 @@
 
         <section class="section section-post-header">
             <div class="container">
+                <h1 class="title">Fil de discussion</h1>
+                {% if app.user %}
+                    {{ include('message/_form.html.twig') }}
+                {% endif %}
                 <article class="message-list">
                     {% for message in trick.messages %}
-                        <div class="message-author">
-                            <img src="/uploads/images/{{ message.userAuthor.profilePicture }}" alt="Author Picture">
-                            <h5>{{ message.userAuthor }}</h5>
-                        </div>
-                        <div class="message-content">
-                            <h5>Posté le {{ message.createdAt|date('d/m/Y') }} à {{ message.createdAt|date('H:i') }}</h5>
-                            <p>{{ message.body }}</p>
+                        <div class="message-block">
+                            <div class="message-author">
+                                <img src="/uploads/images/{{ message.userAuthor.profilePicture }}" alt="Author Picture">
+                                <h5>{{ message.userAuthor }}</h5>
+                            </div>
+                            <div class="message-content">
+                                <h5>Posté le {{ message.createdAt|date('d/m/Y') }}
+                                    à {{ message.createdAt|date('H:i') }}</h5>
+                                <p>{{ message.body }}</p>
+                            </div>
                         </div>
                     {% endfor %}
                 </article>

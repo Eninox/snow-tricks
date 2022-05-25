@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Media;
+use App\Entity\Message;
 use App\Entity\Trick;
+use App\Form\MessageType;
 use App\Form\TrickEditType;
 use App\Form\TrickType;
 use App\Repository\CategoryRepository;
@@ -65,14 +67,30 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_trick_show', methods: ['GET'])]
-    public function show(Trick $trick, MediaRepository $mediaRepository): Response
+    #[Route('/{id}', name: 'app_trick_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository, MessageRepository $messageRepository): Response
     {
-        // générer le formulaire de création de commentaire + l'envoyer dans le render
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message->setUserAuthor($this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setTrick($trick);
+            $message->setCreatedAt(new \DateTimeImmutable());
+
+            $messageRepository->add($message, true);
+            $this->addFlash('success', 'Votre commentaire est créé !');
+
+            return $this->redirectToRoute('app_trick_show', [
+                'id' => $trick->getId(),
+            ], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'medias' => $mediaRepository->findBy(['trick' => $trick]),
+            'form' => $form->createView(),
         ]);
     }
 

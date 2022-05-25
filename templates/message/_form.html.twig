@@ -1,0 +1,9 @@
+<div class="form-type">
+    {{ form_start(form) }}
+{#    {{ form_widget(form) }}#}
+    {{ form_row(form.body) }}
+    {{ form_row(form.captcha) }}
+    {{ form_errors(form.captcha) }}
+    <button class="btn btn-primary">{{ button_label|default('Poster') }}</button>
+    {{ form_end(form) }}
+</div>

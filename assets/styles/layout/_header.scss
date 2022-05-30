@@ -42,17 +42,18 @@
     .container-logo {
       position: absolute;
       top: -100px;
-      clip-path:ellipse(50% 33%);
+      clip-path: ellipse(50% 33%);
       background-color: white;
       //border: thick double variables.$color-primary;
 
       img {
         max-width: 200px;
-        clip-path:ellipse(50% 33%);
+        clip-path: ellipse(50% 33%);
       }
     }
 
     .container-header-left, .container-header-right {
+      position: relative;
       flex-grow: 1; // element take all the available space
       display: flex;
       justify-content: space-around;
@@ -77,6 +78,13 @@
             }
           }
         }
+      }
+
+      .title-welcome {
+        position: absolute;
+        top: 0.01rem;
+        left: 0.01rem;
+        color: white;
       }
     }
   }

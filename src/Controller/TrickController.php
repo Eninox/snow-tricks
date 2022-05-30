@@ -90,6 +90,7 @@ class TrickController extends AbstractController
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'medias' => $mediaRepository->findBy(['trick' => $trick]),
+            'message' => $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']),
             'form' => $form->createView(),
         ]);
     }
@@ -97,6 +98,12 @@ class TrickController extends AbstractController
     #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('danger', 'Vous n\'avez pas le droit de modifier ce trick !');
+
+            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         $form = $this->createForm(TrickEditType::class, $trick);
         $form->handleRequest($request);
 
@@ -115,6 +122,12 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('danger', 'Vous n\'avez pas le droit de supprimer ce trick !');
+
+            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
         }

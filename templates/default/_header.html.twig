@@ -23,6 +23,12 @@
                     </li>
                 {% endif %}
             </ul>
+        <div class="title-welcome">
+            <small>Bienvenue sur Snow Tricks
+                {% if app.user %}
+                    {{ app.user.firstName }}
+                {% endif %} </small>
+        </div>
         </nav>
 
         <div class="container-header-middle">

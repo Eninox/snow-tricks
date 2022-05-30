@@ -91,4 +91,19 @@
       }
     }
   }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin: 0.5rem;
+    }
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
+  }
 }

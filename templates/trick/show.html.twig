@@ -73,7 +73,8 @@
                     {{ include('message/_form.html.twig') }}
                 {% endif %}
                 <article class="message-list">
-                    {% for message in trick.messages %}
+                    {{ knp_pagination_render(messages) }}
+                    {% for message in messages %}
                         <div class="message-block">
                             <div class="message-author">
                                 <img src="/uploads/images/{{ message.userAuthor.profilePicture }}" alt="Author Picture">
@@ -86,6 +87,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {{ knp_pagination_render(messages) }}
                 </article>
             </div>
         </section>

@@ -13,6 +13,8 @@ use App\Repository\CategoryRepository;
 use App\Repository\MediaRepository;
 use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +36,7 @@ class TrickController extends AbstractController
     #[Route('/nouveau', name: 'app_trick_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TrickRepository $trickRepository): Response
     {
+        // Creating form to create a new trick
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
         $trick->setUserCreator($this->getUser());
@@ -42,6 +45,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             foreach ($form->getData()->getMedia() as $media) {
+                // Overriding the user input for choice type of media
                 if ($media->getMediaFile() instanceof UploadedFile) {
                     if (str_starts_with($media->getMediaFile()->getMimeType(), 'image/')) {
                         $media->setType(Media::TYPE_PICTURE);
@@ -68,8 +72,17 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_trick_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository, MessageRepository $messageRepository): Response
+    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
+                         PaginatorInterface $paginator, MessageRepository $messageRepository): Response
     {
+        // Configuring paginate of messages
+        $messages = $paginator->paginate(
+            $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']), // Request for all messages of the trick
+            $request->query->getInt('page', 1), // Page number (default is 1)
+            5 // Limit messages per page
+        );
+
+        // Creating form view to add a message in trick show page
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $message->setUserAuthor($this->getUser());
@@ -90,7 +103,7 @@ class TrickController extends AbstractController
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'medias' => $mediaRepository->findBy(['trick' => $trick]),
-            'message' => $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']),
+            'messages' => $messages,
             'form' => $form->createView(),
         ]);
     }
@@ -98,6 +111,7 @@ class TrickController extends AbstractController
     #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        // Checking if the trick is owned by the user
         if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('danger', 'Vous n\'avez pas le droit de modifier ce trick !');
 
@@ -122,6 +136,7 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        // Checking if the trick is owned by the user
         if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
             $this->addFlash('danger', 'Vous n\'avez pas le droit de supprimer ce trick !');
 

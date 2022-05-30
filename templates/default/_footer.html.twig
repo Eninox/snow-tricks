@@ -1,0 +1,59 @@
+<footer id="main-footer">
+    <div class="container-footer">
+        <div class="container-logo">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('uploads/images/logo-snow-tricks.png') }}" alt="logo-snow-tricks">
+            </a>
+        </div>
+
+        <nav class="container-footer-links">
+            <div class="link-content">
+                <ul>
+                    <li>
+                        <a href="#">
+                            Qui sommes-nous ?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Nous contacter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="link-content">
+                <ul>
+                    <li>
+                        <a href="#">
+                            Conseils & Astuces
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_trick_index') }}">
+                            Tous les tricks
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="link-content">
+                <ul>
+                    <li>
+                        <a href="{{ path('app_register') }}">
+                            S'inscrire
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_login') }}">
+                            Se connecter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <nav class="container-footer-social-networks">
+
+        </nav>
+    </div>
+
+</footer>

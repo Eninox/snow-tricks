@@ -32,5 +32,14 @@
         {% block body %}{% endblock %}
 
     </main>
+
+    <div class="back-to-top">
+        <a class="btn btn-back-to-top" href="#">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    {{ render(controller('App\\Controller\\DefaultController::footer')) }}
+
 </body>
 </html>

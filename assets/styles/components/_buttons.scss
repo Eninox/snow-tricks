@@ -54,6 +54,27 @@
       background-color: red;
     }
   }
+
+  &.btn-back-to-topS {
+    border-color: rgb(51, 60, 86);
+    background-color: rgb(51, 60, 86);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0.5rem;
+
+    &.back-to-top > i {
+      color: white;
+    }
+
+    &:hover {
+      border-color: white;
+
+      i {
+        color: rgb(51, 60, 86);
+      }
+    }
+  }
 }
 
 .button-action {

@@ -25,4 +25,9 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/_header.html.twig');
     }
+
+    public function footer() : Response
+    {
+        return $this->render('default/_footer.html.twig');
+    }
 }

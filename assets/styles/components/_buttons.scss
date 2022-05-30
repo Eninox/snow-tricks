@@ -55,23 +55,22 @@
     }
   }
 
-  &.btn-back-to-topS {
-    border-color: rgb(51, 60, 86);
-    background-color: rgb(51, 60, 86);
+  &.btn-back-to-top {
+    border-color: variables.$color-primary;
+    background-color: variables.$color-primary;
     position: fixed;
-    right: 0;
-    bottom: 0;
-    margin-bottom: 0.5rem;
+    right: 0.5rem;
+    bottom: 2rem;
 
-    &.back-to-top > i {
+    &.btn-back-to-top > i {
       color: white;
     }
 
     &:hover {
-      border-color: white;
+      border-color: variables.$color-tertiary;
 
       i {
-        color: rgb(51, 60, 86);
+        color: variables.$color-tertiary;
       }
     }
   }

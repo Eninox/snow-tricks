@@ -1,6 +1,6 @@
 <footer id="main-footer">
     <div class="container-footer">
-        <div class="container-logo">
+        <div class="container-footer-logo">
             <a href="{{ path('home') }}">
                 <img src="{{ asset('uploads/images/logo-snow-tricks.png') }}" alt="logo-snow-tricks">
             </a>
@@ -37,22 +37,37 @@
             </div>
             <div class="link-content">
                 <ul>
-                    <li>
-                        <a href="{{ path('app_register') }}">
-                            S'inscrire
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('app_login') }}">
-                            Se connecter
-                        </a>
-                    </li>
+                    {% if app.user %}
+                        <li>
+                            <a href="{{ path('app_logout') }}">
+                                Se déconnecter
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_trick_new') }}">
+                                Créer un trick
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('app_register') }}">
+                                S'inscrire
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_login') }}">
+                                Se connecter
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
 
         <nav class="container-footer-social-networks">
-
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
         </nav>
     </div>
 

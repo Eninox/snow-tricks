@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.5.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -94,6 +97,9 @@
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v3.7.0"
     },
     "google/recaptcha": {
         "version": "1.2",

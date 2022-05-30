@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
@@ -43,6 +44,10 @@ class Trick
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tricks')]
     private $userCreator;
+
+    #[Gedmo\Slug(fields: ['name'])]
+    #[ORM\Column(type: 'string', length: 180)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -191,5 +196,10 @@ class Trick
         $this->userCreator = $userCreator;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

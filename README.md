@@ -221,3 +221,16 @@ Pour snow tricks renseigner : reCAPTCHA version 2 ; Case à cocher ; domaine = l
 Saisir les clés générées puis intégrer le champ 'captcha' dans un formulaire
 
 
+## Sécurité accès aux pages
+Pour la route "new" définir l'accès dans le fichier ```config/packages/security.yaml```
+```yaml
+access_control:
+         - { path: ^/trick/nouveau, roles: ROLE_USER }
+```
+
+Pour les routes "edit" et "delete" définir l'accès dans le contrôleur
+```php
+if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+        }
+```

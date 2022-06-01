@@ -61,6 +61,7 @@ class TrickEditType extends AbstractType
             ])
             ->add('media', CollectionType::class, [
                 'entry_type' => MediaType::class,
+                'label' => ' ',
                 'required'  => false,
                 'allow_add' => true,
                 'allow_delete' => true,

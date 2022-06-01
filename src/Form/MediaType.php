@@ -57,7 +57,7 @@ class MediaType extends AbstractType
                             'video/x-flv',
                             'video/avi',
                         ],
-                        'mimeTypesMessage' => 'Merci de choisir un fichier de type jpeg, png, gif, mp4, webm, ogg, flv, avi',
+                        'mimeTypesMessage' => 'Type de fichier non valide',
                     ]),
                 ],
             ])

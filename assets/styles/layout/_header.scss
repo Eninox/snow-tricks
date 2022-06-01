@@ -8,6 +8,15 @@
   background-color: variables.$color-secondary;
   box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
 
+  //&.site-header--small {
+  //  .container-header {
+  //
+  //    .container-logo {
+  //      position: relative;
+  //    }
+  //  }
+  //}
+
   ul {
     display: flex;
     align-items: center;
@@ -88,22 +97,33 @@
       }
     }
   }
+
 }
 
 @include mixins.desktop-large {
   .container {
     width: 992px;
   }
+
+
 }
 
 @include mixins.desktop {
   .container {
     width: 576px;
   }
+
+  span {
+    display: none;
+  }
+
 }
 
 @include mixins.smartphone {
   .container {
     width: 100%;
+  }
+  span {
+    display: none;
   }
 }

@@ -53,7 +53,7 @@ class TrickType extends AbstractType
                             'image/png',
                             'image/gif',
                         ],
-                        'mimeTypesMessage' => 'Veuillez uploader un fichier de type jpeg, jpg, png ou gif',
+                        'mimeTypesMessage' => 'Type de fichier non valide',
                     ]),
                     new NotBlank([
                         'message' => 'Veuillez uploader une image',

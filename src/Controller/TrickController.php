@@ -71,7 +71,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_trick_show', methods: ['GET', 'POST'])]
+    #[Route('/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
                          PaginatorInterface $paginator, MessageRepository $messageRepository): Response
     {
@@ -96,7 +96,7 @@ class TrickController extends AbstractController
             $this->addFlash('success', 'Votre commentaire est créé !');
 
             return $this->redirectToRoute('app_trick_show', [
-                'id' => $trick->getId(),
+                'slug' => $trick->getSlug(),
             ], Response::HTTP_SEE_OTHER);
         }
 

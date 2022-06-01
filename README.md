@@ -234,3 +234,27 @@ if ($trick->getUserCreator() !== $this->getUser() && !$this->isGranted('ROLE_ADM
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 ```
+
+## Mise en place pagination des messages
+
+Installer la dépendance knp/paginator ```composer require knplabs/knp-paginator-bundle```
+
+Dans le contrôleur Trick, utiliser les méthodes de pagination de KnpPaginatorBundle
+```php
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+```
+Dans la function show
+```php
+// Configuring paginate of messages
+        $messages = $paginator->paginate(
+            $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']), // Request for all messages of the trick
+            $request->query->getInt('page', 1), // Page number (default is 1)
+            5 // Limit messages per page
+        );
+```
+Dans le template Twig, intégrer le visuel de la pagination
+```twig
+{{ knp_pagination_render(messages) }}
+```
+

@@ -35,7 +35,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
          $media4 = new Media();
          $media4->setTitle('media4');
          $media4->setType('Vidéo streamée');
-         $media4->setStreamedPath('yhuMagGOGVE');
+         $media4->setStreamedPath('https://www.youtube.com/watch?v=t705_V-RDcQ');
          $media4->setTrick($this->getReference(TrickFixtures::TRICK3_REFERENCE));
          $manager->persist($media4);
 
@@ -49,7 +49,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
          $media6 = new Media();
          $media6->setTitle('media6');
          $media6->setType('Vidéo streamée');
-         $media6->setStreamedPath('https://youtu.be/OYDDChgbDyQ');
+         $media6->setStreamedPath('https://www.youtube.com/watch?v=t705_V-RDcQ');
          $media6->setTrick($this->getReference(TrickFixtures::TRICK4_REFERENCE));
          $manager->persist($media6);
 

@@ -29,12 +29,12 @@
                             </div>
 
                             <div class="card-content">
-                                <a href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}">
                                     <h3>{{ trick.name }}</h3>
                                 </a>
                                 <p>{{ trick.description }}</p>
                                 <p>Créée par {{ trick.userCreator.firstname }} {{ trick.userCreator.lastname }} </p>
-                                <a class="btn btn-primary" href="{{ path('app_trick_show', {'id': trick.id}) }}">
+                                <a class="btn btn-primary" href="{{ path('app_trick_show', {'slug': trick.slug}) }}">
                                     <div>
                                         Détail & Discussion
                                     </div>

@@ -13,7 +13,7 @@
 
         {% for category in categories %}
             <div class="title trick-list-title">
-                <a href="{{ path('app_category_show', {'id': category.id}) }}">
+                <a href="{{ path('app_category_show', {'slug': category.slug}) }}">
                     <h1>{{ category.name }}</h1>
                 </a>
             </div>

@@ -39,14 +39,12 @@
                 {% for media in trick.media %}
                     {% if media.type == "Image" %}
                         <div class="media-display">
-                            <h5>{{ media.title }}</h5>
                             <img src="{{ asset('uploads/media/') ~ media.uploadedPath }}"
                                  alt="{{ media.title }}">
                         </div>
                     {% endif %}
                     {% if media.type == "Vidéo téléchargée" %}
                         <div class="media-display">
-                            <h5>{{ media.title }}</h5>
                             <video controls width="560">
                                 <source src="{{ asset('uploads/media/') ~ media.uploadedPath }}">
                                 Votre vidéo ne s'affiche pas, consulter le lien
@@ -55,7 +53,6 @@
                     {% endif %}
                     {% if media.streamedPath %}
                         <div class="media-display">
-                            <h5>{{ media.title }}</h5>
                             <iframe width="560" height="315" src="{{ media.srcVideo }}" title="{{ media.title }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen>Votre vidéo ne s'affiche pas, consulter le lien

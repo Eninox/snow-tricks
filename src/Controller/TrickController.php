@@ -151,7 +151,7 @@ class TrickController extends AbstractController
     }
 
     // Add a route to show a category with their tricks
-    #[Route('/category/{id}', name: 'app_category_show', methods: ['GET'])]
+    #[Route('/category/{slug}', name: 'app_category_show', methods: ['GET'])]
     public function showCategory(Category $category, TrickRepository $trickRepository): Response
     {
         return $this->render('category/show.html.twig', [

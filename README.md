@@ -258,3 +258,36 @@ Dans le template Twig, intégrer le visuel de la pagination
 {{ knp_pagination_render(messages) }}
 ```
 
+## Mise en place d'un service de slugger
+Installer le bundle Gedmo/Sluggable ```composer require gedmo/doctrine-extensions```
+
+Créer le fichier ```config/packages/doctrine_extensions.yaml``` et y insérer :
+```yaml
+services:
+  gedmo.listener.sluggable:
+    class: Gedmo\Sluggable\SluggableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]
+```
+Dans l'entité qui a besoin d'être sluggable, utiliser le service de slugger
+```php
+use Gedmo\Mapping\Annotation as Gedmo;
+```
+et identifier l'attribut qui :  
+1: est le slug  
+2: fait référence à un attribut à slugger  
+3: doit être créé en BDD
+```php
+#[Gedmo\Slug(fields: ['name'])]
+    #[ORM\Column(type: 'string', length: 180)]
+    private ?string $slug = null;
+```
+Créer une méthode get pour le slug
+```php
+public function getSlug()
+    {
+        return $this->slug;
+    }
+```

@@ -27,7 +27,7 @@ class TrickController extends AbstractController
     public function index(TrickRepository $trickRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('trick/index.html.twig', [
-            'tricks' => $trickRepository->findAll(),
+            'tricks' => $trickRepository->findBy(['valid' => true]),
             'categories' => $categoryRepository->findAll(),
         ]);
     }
@@ -71,9 +71,15 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
-    public function show(Request            $request, Trick $trick, MediaRepository $mediaRepository,
+    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
                          PaginatorInterface $paginator, MessageRepository $messageRepository): Response
     {
+        if ($trick->getValid() === false && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('danger', 'Ce trick n\'est pas encore validé !');
+
+            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         // Configuring paginate of messages
         $messages = $paginator->paginate(
             $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']), // Request for all messages of the trick
@@ -154,7 +160,7 @@ class TrickController extends AbstractController
     public function showCategory(Category $category, TrickRepository $trickRepository): Response
     {
         return $this->render('category/show.html.twig', [
-            'tricks' => $trickRepository->findAll(),
+            'tricks' => $trickRepository->findBy(['valid' => true]),
             'category' => $category,
         ]);
     }

@@ -17,7 +17,7 @@ class AdminController extends AbstractController
     public function index(TrickRepository $trickRepository): Response
     {
         return $this->render('admin/admin.html.twig', [
-            'tricks' => $trickRepository->findAll(),
+            'tricks' => $trickRepository->findBy(['valid' => false]),
         ]);
     }
 
@@ -33,7 +33,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin_trick_index');
     }
 
-    #[Route('/{id}', name: 'app_admin_trick_refuse', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'app_admin_trick_refuse', methods: ['POST'])]
     public function refuseTrick(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {

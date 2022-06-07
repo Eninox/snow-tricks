@@ -8,14 +8,31 @@
   background-color: variables.$color-secondary;
   box-shadow: 0 5px 30px rgba(0, 22, 84, 0.1);
 
-  //&.site-header--small {
-  //  .container-header {
-  //
-  //    .container-logo {
-  //      position: relative;
-  //    }
-  //  }
-  //}
+  &.site-header--small {
+    .container-header {
+
+      .container-header-middle {
+        width: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+      }
+      .container-logo {
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: 0;
+        clip-path: ellipse(50% 33%);
+        background-color: white;
+
+        img {
+          max-height: 150px;
+          clip-path: ellipse(50% 33%);
+        }
+      }
+    }
+  }
 
   ul {
     display: flex;
@@ -31,6 +48,7 @@
   }
 
   .container-header {
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,7 +71,6 @@
       top: -100px;
       clip-path: ellipse(50% 33%);
       background-color: white;
-      //border: thick double variables.$color-primary;
 
       img {
         max-width: 200px;

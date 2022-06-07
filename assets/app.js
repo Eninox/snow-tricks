@@ -12,26 +12,26 @@ import './styles/app.scss';
 import './bootstrap';
 
 
-// /* Change header style on scroll
-//     --------------------------------------------- */
-// const siteHeader = document.querySelector( '#main-header' );
-// let scrolledHeader = false;
-//
-// function toggleHeader() {
-//     const siteHeaderTop = 0;
-//     const scrollPosition = document.querySelector( 'html' ).scrollTop;
-//     if ( ! scrolledHeader && scrollPosition > siteHeaderTop ) {
-//         siteHeader.classList.add( 'site-header--small' );
-//         scrolledHeader = ! scrolledHeader;
-//     } else if ( scrolledHeader && scrollPosition <= siteHeaderTop ) {
-//         siteHeader.classList.remove( 'site-header--small' );
-//         scrolledHeader = ! scrolledHeader;
-//     }
-// }
-//
-// if ( siteHeader ) {
-//     toggleHeader();
-//     window.onscroll = () => {
-//         toggleHeader();
-//     };
-// }
+/* Change header style on scroll
+    --------------------------------------------- */
+const siteHeader = document.querySelector( '#main-header' );
+let scrolledHeader = false;
+
+function toggleHeader() {
+    const siteHeaderTop = 0;
+    const scrollPosition = document.querySelector( 'html' ).scrollTop;
+    if ( ! scrolledHeader && scrollPosition > siteHeaderTop ) {
+        siteHeader.classList.add( 'site-header--small' );
+        scrolledHeader = ! scrolledHeader;
+    } else if ( scrolledHeader && scrollPosition <= siteHeaderTop ) {
+        siteHeader.classList.remove( 'site-header--small' );
+        scrolledHeader = ! scrolledHeader;
+    }
+}
+
+if ( siteHeader ) {
+    toggleHeader();
+    window.onscroll = () => {
+        toggleHeader();
+    };
+}

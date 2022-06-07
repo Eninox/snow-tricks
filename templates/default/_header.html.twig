@@ -5,7 +5,7 @@
                 <li>
                     <a href="{{ path('home') }}">
                         <i class="fa fa-info-circle"></i>
-                        Conseils & Astuces
+                        <span>Conseils & Astuces</span>
                     </a>
                 </li>
                 <li>
@@ -18,17 +18,17 @@
                     <li>
                         <a href="{{ path('app_trick_new') }}">
                             <i class="fa fa-plus"></i>
-                            Créer un trick
+                            <span>Créer un trick</span>
                         </a>
                     </li>
                 {% endif %}
             </ul>
-        <div class="title-welcome">
-            <small>Bienvenue sur Snow Tricks
-                {% if app.user %}
-                    {{ app.user.firstName }}
-                {% endif %} </small>
-        </div>
+            <div class="title-welcome">
+                <small>Bienvenue sur Snow Tricks
+                    {% if app.user %}
+                        {{ app.user.firstName }}
+                    {% endif %} </small>
+            </div>
         </nav>
 
         <div class="container-header-middle">
@@ -44,27 +44,27 @@
                 <li>
                     <a href="{{ path('home') }}">
                         <i class="fa fa-id-card-o"></i>
-                        Découvrir Snow Tricks
+                        <span>Découvrir Snow Tricks</span>
                     </a>
                 </li>
                 {% if app.user %}
                     <li>
                         <a href="{{ path('app_logout') }}">
                             <i class="fa fa-user-times"></i>
-                            Se déconnecter
+                            <span>Se déconnecter</span>
                         </a>
                     </li>
                 {% else %}
                     <li>
                         <a href="{{ path('app_register') }}">
                             <i class="fa fa-user-plus"></i>
-                            S'inscrire
+                            <span>S'inscrire</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('app_login') }}">
                             <i class="fa fa-user"></i>
-                            Se connecter
+                            <span>Se connecter</span>
                         </a>
                     </li>
                 {% endif %}

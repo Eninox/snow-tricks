@@ -1,0 +1,53 @@
+@use '../abstracts/variables';
+
+#admin-header {
+  background-color: black;
+
+  ul {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+
+    li {
+
+      a {
+        display: inline-block;
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+        transition: color 0.5s;
+
+        &:hover {
+          color: variables.$color-tertiary;
+        }
+      }
+    }
+  }
+
+  .fa {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.admin-trick-table {
+  border: solid 1px variables.$color-primary;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  thead th {
+    background-color: variables.$color-primary;
+    border: solid 1px variables.$color-primary;
+    color: white;
+    padding: 10px;
+    text-align: left;
+  }
+
+  tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+  }
+}

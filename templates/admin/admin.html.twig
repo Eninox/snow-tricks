@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+    <div class="section">
+        <h1>Administration des tricks</h1>
+
+        <table class="admin-trick-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Catégorie</th>
+                <th>Description</th>
+                <th>MainPicture</th>
+                <th>Consulter</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for trick in tricks %}
+                {% if trick.valid == 0 %}
+                    <tr>
+                        <td>{{ trick.id }}</td>
+                        <td>{{ trick.name }}</td>
+                        <td>{{ trick.category }}</td>
+                        <td>{{ trick.description }}</td>
+                        <td>{{ trick.mainPicture }}</td>
+                        <td><a target="_blank" class="btn btn-primary"
+                               href="{{ path('app_trick_show', {'slug': trick.slug}) }}">Voir</a></td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('app_admin_trick_valid', {'id': trick.id}) }}">Accepter</a>
+                            <a class="btn btn-tertiary"
+                               href="{{ path('app_trick_delete', {'id': trick.id}) }}">Refuser</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td>Aucun trick à valider</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

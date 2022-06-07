@@ -13,7 +13,6 @@ use App\Repository\CategoryRepository;
 use App\Repository\MediaRepository;
 use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -72,7 +71,7 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
+    public function show(Request            $request, Trick $trick, MediaRepository $mediaRepository,
                          PaginatorInterface $paginator, MessageRepository $messageRepository): Response
     {
         // Configuring paginate of messages

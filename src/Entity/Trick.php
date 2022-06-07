@@ -49,6 +49,9 @@ class Trick
     #[ORM\Column(type: 'string', length: 180)]
     private ?string $slug = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $valid = false;
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
@@ -201,5 +204,17 @@ class Trick
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function getValid(): ?bool
+    {
+        return $this->valid;
+    }
+
+    public function setValid(bool $valid): self
+    {
+        $this->valid = $valid;
+
+        return $this;
     }
 }

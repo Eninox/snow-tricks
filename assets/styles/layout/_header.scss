@@ -19,6 +19,8 @@
       }
 
       .container-logo {
+        transition: 0.5s;
+        transition-timing-function: ease-in-out;
         display: flex;
         align-items: center;
         position: relative;
@@ -67,6 +69,8 @@
     }
 
     .container-logo {
+      transition: 0.5s;
+      transition-timing-function: ease-in-out;
       position: absolute;
       top: -100px;
       clip-path: ellipse(50% 33%);

@@ -1,9 +1,21 @@
 @use '../abstracts/variables';
 
+// Header CSS
+
 #admin-header {
+  height: 100px;
   background-color: black;
 
+  h1 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
   ul {
+    margin: 0;
     flex-grow: 1;
     display: flex;
     justify-content: flex-start;
@@ -32,22 +44,38 @@
   }
 }
 
+// Tricks table CSS
+
 .admin-trick-table {
+  table-layout: fixed;
   border: solid 1px variables.$color-primary;
   border-collapse: collapse;
   border-spacing: 0;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 
   thead th {
     background-color: variables.$color-primary;
     border: solid 1px variables.$color-primary;
     color: white;
     padding: 10px;
-    text-align: left;
+    text-align: center;
   }
 
   tbody td {
     border: solid 1px #DDEEEE;
     color: #333;
     padding: 10px;
+
+    img {
+      height: 100px;
+    }
+
+    a, button {
+      margin: 0.5rem;
+    }
+  }
+
+  #td-content-item {
+    text-align: center;
   }
 }

@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Trick;
-use App\Repository\CategoryRepository;
+use App\Repository\MediaRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin_trick_index', methods: ['GET'])]
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository, MediaRepository $mediaRepository): Response
     {
         return $this->render('admin/admin.html.twig', [
             'tricks' => $trickRepository->findBy(['valid' => false]),
+            'medias' => $mediaRepository->findAll(),
         ]);
     }
 

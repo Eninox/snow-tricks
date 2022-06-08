@@ -58,8 +58,9 @@ class TrickController extends AbstractController
 
                 $media->setTrick($trick);
             }
+
             $trickRepository->add($trick, true);
-            $this->addFlash('success', 'Votre trick est créée !');
+            $this->addFlash('success', 'Votre trick est créée ! Elle sera affichée dès qu\'un administrateur aura validé son contenu.');
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -75,8 +76,6 @@ class TrickController extends AbstractController
                          PaginatorInterface $paginator, MessageRepository $messageRepository): Response
     {
         if ($trick->getValid() === false && !$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('danger', 'Ce trick n\'est pas encore validé !');
-
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -127,7 +126,14 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($form->getData()->getMedia() as $media) {
+                $media->setTrick($trick);
+            }
+
+            $trick->setValid(false);
             $trickRepository->add($trick, true);
+            $this->addFlash('success', 'Votre trick est modifiée ! Elle sera affichée dès qu\'un administrateur aura validé son contenu.');
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }

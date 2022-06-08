@@ -4,6 +4,11 @@
 
 {% block body %}
     <section class="section section-post-header">
+        {% if trick.valid == false %}
+        <h2>
+            Attention, cette page n'est visible que par un administrateur, pour la publier sur le site, merci de la valider depuis l'espace Admin
+        </h2>
+        {% endif %}
         <div class="btn-group">
             {% if app.user and app.user.id == trick.userCreator.id or is_granted('ROLE_ADMIN') %}
                 <div class="button-action">

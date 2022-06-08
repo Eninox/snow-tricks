@@ -4,18 +4,19 @@
 
 {% block body %}
 
-    <div class="section">
-        <h1>Administration des tricks</h1>
+    <div class="section title">
+        <h1>Administration des tricks ({{ tricks|length }})</h1>
 
         <table class="admin-trick-table">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Catégorie</th>
                 <th>Description</th>
-                <th>MainPicture</th>
-                <th>Consulter</th>
+                <th>Image principale</th>
+                <th>Media secondaire(s)</th>
+                <th>Page</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -26,11 +27,45 @@
                     <td>{{ trick.name }}</td>
                     <td>{{ trick.category }}</td>
                     <td>{{ trick.description }}</td>
-                    <td>{{ trick.mainPicture }}</td>
-                    <td><a target="_blank" class="btn btn-primary"
-                           href="{{ path('app_trick_show', {'slug': trick.slug}) }}">Voir</a></td>
-                    <td>
-                        <a class="btn btn-primary" href="{{ path('app_admin_trick_accept', {'id': trick.id}) }}">Accepter</a>
+                    <td id="td-content-item">
+                        <img src="/uploads/images/{{ trick.mainPicture }}" alt="{{ trick.name }}">
+                    </td>
+                    {% if trick.media %}
+                        <td id="td-content-item">
+                            {% for media in trick.media %}
+                                {% if media.type == "Image" %}
+                                    <div class="media-display">
+                                        <img src="{{ asset('uploads/media/') ~ media.uploadedPath }}"
+                                             alt="{{ media.title }}">
+                                    </div>
+                                {% endif %}
+                                {% if media.type == "Vidéo téléchargée" %}
+                                    <div class="media-display">
+                                        <video controls height="100">
+                                            <source src="{{ asset('uploads/media/') ~ media.uploadedPath }}">
+                                            Votre vidéo ne s'affiche pas, consulter le lien
+                                        </video>
+                                    </div>
+                                {% endif %}
+                                {% if media.streamedPath %}
+                                    <div class="media-display">
+                                        <iframe height="100" src="{{ media.srcVideo }}"
+                                                title="{{ media.title }}"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>Votre vidéo ne s'affiche pas, consulter le lien
+                                        </iframe>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endif %}
+                    <td id="td-content-item">
+                        <a target="_blank" class="btn btn-secondary"
+                           href="{{ path('app_trick_show', {'slug': trick.slug}) }}">Voir</a>
+                    </td>
+                    <td id="td-content-item">
+                        <a class="btn btn-primary"
+                           href="{{ path('app_admin_trick_accept', {'id': trick.id}) }}">Accepter</a>
 
                         <form method="post"
                               action="{{ path('app_admin_trick_refuse', {'id': trick.id}) }}"

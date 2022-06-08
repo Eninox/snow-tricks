@@ -53,6 +53,13 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
          $media6->setTrick($this->getReference(TrickFixtures::TRICK4_REFERENCE));
          $manager->persist($media6);
 
+        $media7 = new Media();
+        $media7->setTitle('media7');
+        $media7->setType('Vidéo téléchargée');
+        $media7->setUploadedPath('video1.mp4');
+        $media7->setTrick($this->getReference(TrickFixtures::TRICK3_REFERENCE));
+        $manager->persist($media7);
+
         $manager->flush();
     }
 

@@ -71,47 +71,6 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
-                         PaginatorInterface $paginator, MessageRepository $messageRepository): Response
-    {
-        if ($trick->getValid() === false && !$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        // Configuring paginate of messages
-        $messages = $paginator->paginate(
-            $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']), // Request for all messages of the trick
-            $request->query->getInt('page', 1), // Page number (default is 1)
-            5 // Limit messages per page
-        );
-
-        // Creating form view to add a message in trick show page
-        $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
-        $message->setUserAuthor($this->getUser());
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $message->setTrick($trick);
-            $message->setCreatedAt(new \DateTimeImmutable());
-
-            $messageRepository->add($message, true);
-            $this->addFlash('success', 'Votre commentaire est créé !');
-
-            return $this->redirectToRoute('app_trick_show', [
-                'slug' => $trick->getSlug(),
-            ], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('trick/show.html.twig', [
-            'trick' => $trick,
-            'medias' => $mediaRepository->findBy(['trick' => $trick]),
-            'messages' => $messages,
-            'form' => $form->createView(),
-        ]);
-    }
-
     #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -159,6 +118,47 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{slug}', name: 'app_trick_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Trick $trick, MediaRepository $mediaRepository,
+                         PaginatorInterface $paginator, MessageRepository $messageRepository): Response
+    {
+        if ($trick->getValid() === false && !$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        // Configuring paginate of messages
+        $messages = $paginator->paginate(
+            $messageRepository->findBy(['trick' => $trick], ['createdAt' => 'DESC']), // Request for all messages of the trick
+            $request->query->getInt('page', 1), // Page number (default is 1)
+            5 // Limit messages per page
+        );
+
+        // Creating form view to add a message in trick show page
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $message->setUserAuthor($this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setTrick($trick);
+            $message->setCreatedAt(new \DateTimeImmutable());
+
+            $messageRepository->add($message, true);
+            $this->addFlash('success', 'Votre commentaire est créé !');
+
+            return $this->redirectToRoute('app_trick_show', [
+                'slug' => $trick->getSlug(),
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('trick/show.html.twig', [
+            'trick' => $trick,
+            'medias' => $mediaRepository->findBy(['trick' => $trick]),
+            'messages' => $messages,
+            'form' => $form->createView(),
+        ]);
     }
 
     // Add a route to show a category with their tricks

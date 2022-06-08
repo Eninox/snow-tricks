@@ -82,4 +82,68 @@
   }
 }
 
+@include mixins.desktop-large {
+  .container {
+    width: 992px;
+  }
+}
+
+@include mixins.desktop {
+  .container {
+    width: 576px;
+  }
+
+  .container-footer-links {
+    flex-direction: column;
+
+    .link-content {
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          margin: 0;
+          padding: 0;
+          a {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .container-footer-social-networks {
+    flex-direction: column;
+  }
+}
+
+@include mixins.smartphone {
+  .container {
+    width: 100%;
+  }
+
+  .container-footer-links {
+    flex-direction: column;
+
+    .link-content {
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          margin: 0;
+          padding: 0;
+          a {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .container-footer-social-networks {
+    flex-direction: column;
+  }
+}
+
 

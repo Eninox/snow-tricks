@@ -125,8 +125,6 @@
   .container {
     width: 992px;
   }
-
-
 }
 
 @include mixins.desktop {
@@ -137,7 +135,6 @@
   span {
     display: none;
   }
-
 }
 
 @include mixins.smartphone {

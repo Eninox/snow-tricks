@@ -1,3 +1,5 @@
+@use '../abstracts/mixins';
+
 .section-register {
   display: flex;
 
@@ -32,5 +34,49 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@include mixins.desktop-large {
+  .container {
+    width: 992px;
+  }
+}
+
+@include mixins.desktop {
+  .container {
+    width: 576px;
+  }
+
+  .section-register {
+    flex-direction: column-reverse;
+  }
+
+  .section-register-right {
+    margin: 30px 0 0 0;
+    border-left: none;
+
+    img {
+      height: 10rem;
+    }
+  }
+}
+
+@include mixins.smartphone {
+  .container {
+    width: 100%;
+  }
+
+  .section-register {
+    flex-direction: column-reverse;
+  }
+
+  .section-register-right {
+    margin: 30px 0 0 0;
+    border-left: none;
+
+    img {
+      height: 10rem;
+    }
   }
 }

@@ -32,7 +32,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau', name: 'app_trick_new', methods: ['GET', 'POST'])]
+    #[Route('/creer', name: 'app_trick_new', methods: ['GET', 'POST'])]
     public function new(Request $request, TrickRepository $trickRepository): Response
     {
         // Creating form to create a new trick
@@ -71,7 +71,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/modifier', name: 'app_trick_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
         // Checking if the trick is owned by the user
@@ -103,7 +103,7 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
+    #[Route('/supprimer/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
         // Checking if the trick is owned by the user

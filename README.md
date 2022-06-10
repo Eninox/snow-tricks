@@ -91,7 +91,7 @@ issu du choix dans la commande make:registration-form
 composer require symfony/mailer
 ```
 Puis personnalier le redirectToRoute dans le RegistrationController.php  
-Pour enlever la connexion automatique après l'inscription (mauvais choix dans le cli), décommenter ```return $userAuthenticator->authenticateUser```  
+Pour enlever la connexion automatique après l'inscription (mauvais choix dans le cli), commenter ```return $userAuthenticator->authenticateUser```  
 Attention les mails envoyés sont paramétrés en asynchrone, modifier ce paramètre dans le fichier ```config/packages/messenger.yaml``` en décommentant ```sync: 'sync://'``` et en paramétrant ```SendEmailMessage: sync```    
 
 Avec docker-compose/maildev, dans le fichier ```.env``` définir ```MAILER_DSN=smtp://127.0.0.1:25```, 25 étant le port exposé dans le fichier ```docker-compose.yml```  
@@ -107,7 +107,7 @@ security:
       user_checker: App\Security\UserChecker
 ```
 
-### Ajouter un champ de confirmation de mot de passe (login)  
+### Ajouter un champ de confirmation de mot de passe (inscription)  
 Dans le RegistrationFormType.php, modifier le champ ```PasswordType::class``` par : 
 ```php
 ->add('plainPassword', RepeatedType::class, [

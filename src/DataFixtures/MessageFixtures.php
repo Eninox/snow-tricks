@@ -81,6 +81,20 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
          $message10->setUserAuthor($this->getReference(UserFixtures::JONSNOW_REFERENCE));
          $manager->persist($message10);
 
+        $message11 = new Message();
+        $message11->setBody('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget nunc vitae nunc tincidunt euismod. Nulla facilisi. Nulla facilisi.');
+        $message11->setCreatedAt(new \DateTimeImmutable());
+        $message11->setTrick($this->getReference(TrickFixtures::TRICK4_REFERENCE));
+        $message11->setUserAuthor($this->getReference(UserFixtures::ARYASTARK_REFERENCE));
+        $manager->persist($message11);
+
+        $message12 = new Message();
+        $message12->setBody('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget nunc vitae nunc tincidunt euismod. Nulla facilisi. Nulla facilisi.');
+        $message12->setCreatedAt(new \DateTimeImmutable());
+        $message12->setTrick($this->getReference(TrickFixtures::TRICK4_REFERENCE));
+        $message12->setUserAuthor($this->getReference(UserFixtures::TYRIONLANNISTER_REFERENCE));
+        $manager->persist($message12);
+
         $manager->flush();
     }
 

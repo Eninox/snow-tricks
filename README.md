@@ -291,3 +291,15 @@ public function getSlug()
         return $this->slug;
     }
 ```
+## Espace Admin
+1. Création de l'attribut "valid" dans l'entité Trick + getter/setter
+2. Sécuriser la route /admin dans security.yaml
+3. Création du contrôleur Admin  
+    Route /admin qui récupère tous les tricks "valid" = false et les media  
+    Route /admin/accept qui appelle l'id du trick, met "valid" = true et met à jour la bdd  
+    Route /admin/{id} qui refuse la trick, la supprime en utilisant la route /delete du TrickController   
+4. Créer la vue de la page Admin (base)
+5. Créer la vue de l'admin des tricks (table)
+6. Mettre à jour les autres templates  
+    Afficher les tricks uniquement vérifiés  
+    Afficher un msg sur la vue show si trick non vérifié  
